@@ -8,6 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import Integer, String, create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
+from prometheus_fastapi_instrumentator import Instrumentator
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
@@ -86,6 +87,12 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Prometheus HTTP request metrics
+Instrumentator().instrument(app).expose(
+    app,
+    endpoint="/metrics",
+    include_in_schema=False,
+)
 
 @app.get("/")
 def root():
