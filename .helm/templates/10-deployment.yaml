@@ -68,14 +68,14 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/health
+              path: /health
               port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/health
+              path: /ready
               port: http
             initialDelaySeconds: 30
             timeoutSeconds: 5
