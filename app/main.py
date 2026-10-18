@@ -94,6 +94,13 @@ Instrumentator().instrument(app).expose(
     include_in_schema=False,
 )
 
+@app.get("/info")
+def api_info():
+    return {
+        "pod_name": os.getenv("HOSTNAME", "unknown"),
+        "pod_ip": os.getenv("POD_IP", "unknown"),
+    }
+
 @app.get("/")
 def root():
     return {"message": "Education API", "docs": "/docs", "health": "/health", "ready": "/ready"}

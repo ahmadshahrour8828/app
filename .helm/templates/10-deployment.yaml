@@ -45,6 +45,11 @@ spec:
                   name: api-db
                   key: password
 
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+
             - name: DATABASE_URL
               value: "postgresql+psycopg://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres.database.svc.cluster.local:5432/appdb"
             #- name: DATABASE_URL
